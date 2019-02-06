@@ -18,13 +18,16 @@ class TestPoliticoApp(unittest.TestCase):
         if not data:
             data = self.data
 
-        resp = self.client.post(path='/api/v1/parties', 
-        data=json.dumps(self.data),content_type='application/json')
+        resp = self.client.post(path='/api/v1/parties',
+                                data=json.dumps(self.data), content_type='application/json')
         return resp
 
     def test_creating_a_party(self):
         resp = self.post()
         self.assertEqual(resp.status_code, 201)
-        # self.assertTrue(resp.json['id'])
         self.assertEqual(resp.json['msg'], 'party created successfully')
- 
+
+    def test_get_all_parties(self):
+        resp = self.client.get(path='/api/v1/parties',
+                               content_type='appliction/json')
+        self.assertEqual(resp.status_code, 200)
