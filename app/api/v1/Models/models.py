@@ -1,5 +1,6 @@
 parties = []
 
+
 class PartyModels():
 
     def __init__(self):

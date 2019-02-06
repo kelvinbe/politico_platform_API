@@ -2,6 +2,7 @@ from flask import Flask, Blueprint, make_response, request, jsonify
 from ..Models.models import PartyModels
 version_1 = Blueprint("version_1", __name__, url_prefix="/api/v1/")
 
+
 @version_1.route('/parties', methods=['POST'])
 def create_party():
     data = request.json
