@@ -53,4 +53,9 @@ class PartyModels():
 
                 return party
 
-   
+    # Delete specific party
+
+    def delete_party(self, id):
+        for party in self.db:
+            if party["id"] == id:
+                self.db.remove(party)
