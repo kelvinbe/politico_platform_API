@@ -56,4 +56,15 @@ def edit_party(id):
     }), 200)
 
 
-   
+   # View to delete a specific party
+
+
+@version_1.route('/parties/<int:id>', methods=['DELETE'])
+def delete_party(id):
+    PartyModels().delete_party(id)
+    return make_response(jsonify({
+        "status": 200,
+        "data": [{
+            "Message": "party deleted successfully"
+        }]
+    }), 200)
