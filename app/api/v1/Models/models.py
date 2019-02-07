@@ -1,4 +1,5 @@
 parties = []
+offices = []
 
 # PartyModels
 
@@ -32,9 +33,7 @@ class PartyModels():
             if party["id"] == id:
                 return party
 
-
      # Edit specific party
-
 
     def edit_party(self, id, data):
         for party in self.db:
@@ -59,3 +58,16 @@ class PartyModels():
         for party in self.db:
             if party["id"] == id:
                 self.db.remove(party)
+
+# OfficeModel
+
+
+class OfficeModels():
+
+    def __init__(self):
+        """Initialization."""
+
+        self.db = offices
+    
+
+    

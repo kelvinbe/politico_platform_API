@@ -29,6 +29,7 @@ class TestPoliticoApp(unittest.TestCase):
         return resp
 
 
+
     def test_creating_a_party(self):
         resp = self.post()
         self.assertEqual(resp.status_code, 201)
@@ -59,6 +60,8 @@ class TestPoliticoApp(unittest.TestCase):
         path = '/api/v1/parties/{}'.format(id)
         response = self.client.delete(path, content_type='application/json')
         self.assertEqual(response.status_code, 200)
+
+        
         
 
 
