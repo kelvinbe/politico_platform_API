@@ -31,3 +31,11 @@ def get_parties():
 # View to get a specific party
 
 
+@version_1.route('/parties/<int:id>', methods=['GET'])
+def get_party(id):
+    party = PartyModels().get_party(id)
+    if party:
+        return make_response(jsonify({
+            "status": "OK",
+            "data": party
+        }), 200)
