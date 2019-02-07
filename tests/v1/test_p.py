@@ -34,11 +34,12 @@ class TestPoliticoApp(unittest.TestCase):
         resp = self.post()
         self.assertEqual(resp.status_code, 201)
         self.assertEqual(resp.json['msg'], 'party created successfully')
-
+    
     def test_get_all_parties(self):
         resp = self.client.get(path='/api/v1/parties',
                                content_type='appliction/json')
         self.assertEqual(resp.status_code, 200)
+    
 
     def test_get_specific_party(self):
         post = self.post()
