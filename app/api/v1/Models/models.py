@@ -24,3 +24,7 @@ class PartyModels():
      # Get all parties
     def get_parties(self):
         return self.db
+
+    # Get specific Party
+
+    
