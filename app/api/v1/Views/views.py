@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, make_response, request, jsonify
-from ..Models.models import PartyModels
+from ..Models.models import PartyModels, OfficeModels
 version_1 = Blueprint("version_1", __name__, url_prefix="/api/v1/")
 
 
@@ -12,7 +12,7 @@ def create_party():
 
     new_party = PartyModels().create(name, hqAddress, logoUrl)
     return make_response(jsonify({
-        "status": "OK",
+        "status": 201,
         "msg": "party created successfully",
         "data": new_party
 
@@ -50,11 +50,10 @@ def edit_party(id):
 
     party = PartyModels().edit_party(id, data)
     return make_response(jsonify({
-        "status": "OK",
+        "status": 200,
         "msg": "party edited successfully",
         "data": party
     }), 200)
-
 
    # View to delete a specific party
 
@@ -68,3 +67,5 @@ def delete_party(id):
             "Message": "party deleted successfully"
         }]
     }), 200)
+
+
