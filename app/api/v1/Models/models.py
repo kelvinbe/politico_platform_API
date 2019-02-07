@@ -27,4 +27,7 @@ class PartyModels():
 
     # Get specific Party
 
-    
+    def get_party(self, id):
+        for party in self.db:
+            if party["id"] == id:
+                return party
