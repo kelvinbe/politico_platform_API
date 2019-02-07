@@ -79,6 +79,8 @@ class OfficeModels():
         }
         self.db.append(office)
         return office
-    
 
-    
+ # Get all offices
+
+    def get_offices(self):
+        return self.db
