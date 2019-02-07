@@ -87,3 +87,15 @@ def create_office():
 
     }), 201)
 
+
+# View to get all offices
+
+
+@version_1.route('/offices', methods=['GET'])
+def get_offices():
+    offices = OfficeModels().get_offices()
+    return make_response(jsonify({
+        "status": 200,
+        "data": offices
+
+    }), 200)
