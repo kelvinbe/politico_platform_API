@@ -31,3 +31,24 @@ class PartyModels():
         for party in self.db:
             if party["id"] == id:
                 return party
+
+
+     # Edit specific party
+
+
+    def edit_party(self, id, data):
+        for party in self.db:
+            if party["id"] == id:
+                name = data.get("name")
+                hqAddress = data.get("hqAddress")
+                logoUrl = data.get("logoUrl")
+                if name:
+                    party["name"] = name
+
+                if hqAddress:
+                    party["hqAddress"] = hqAddress
+
+                if logoUrl:
+                    party["logoUrl"] = logoUrl
+
+                return party

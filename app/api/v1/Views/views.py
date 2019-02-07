@@ -39,3 +39,18 @@ def get_party(id):
             "status": "OK",
             "data": party
         }), 200)
+
+
+# View to edit a specific party
+
+
+@version_1.route('/parties/<int:id>/name', methods=['PATCH'])
+def edit_party(id):
+    data = request.json
+
+    party = PartyModels().edit_party(id, data)
+    return make_response(jsonify({
+        "status": "OK",
+        "msg": "party edited successfully",
+        "data": party
+    }), 200)
