@@ -30,3 +30,10 @@ class TestOfficeCase(unittest.TestCase):
         resp = self.client.get(path='/api/v1/offices',
                                content_type='appliction/json')
         self.assertEqual(resp.status_code, 200)
+
+
+    def test_get_specific_office(self):
+        post = self.post()
+        path = '/api/v1/offices/1'
+        response = self.client.get(path, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
