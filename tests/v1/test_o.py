@@ -26,3 +26,7 @@ class TestOfficeCase(unittest.TestCase):
         resp = self.post()
         self.assertEqual(resp.status_code, 201)
         
+    def test_get_all_offices(self):
+        resp = self.client.get(path='/api/v1/offices',
+                               content_type='appliction/json')
+        self.assertEqual(resp.status_code, 200)
