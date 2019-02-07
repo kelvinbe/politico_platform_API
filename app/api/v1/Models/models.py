@@ -68,6 +68,17 @@ class OfficeModels():
         """Initialization."""
 
         self.db = offices
+    # Create office
+
+    def create(self, type, name):
+
+        office = {
+            "id": len(self.db)+1,
+            "type": type,
+            "name": name,
+        }
+        self.db.append(office)
+        return office
     
 
     

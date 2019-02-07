@@ -69,3 +69,21 @@ def delete_party(id):
     }), 200)
 
 
+
+    # Create office
+
+@version_1.route('/offices', methods=['POST'])
+def create_office():
+    data = request.json
+    name = data['name']
+    type = data['type']
+
+    new_office = OfficeModels().create(name, type)
+    return make_response(jsonify({
+        "status": 201,
+        "data": new_office
+
+
+
+    }), 201)
+
