@@ -17,3 +17,12 @@ def create_party():
         "data": new_party
 
     }), 201)
+
+
+@version_1.route('/parties', methods=['GET'])
+def get_parties():
+    parties = PartyModels().get_parties()
+    return make_response(jsonify({
+        "status": "OK",
+        "data": parties
+    }), 200)
