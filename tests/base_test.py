@@ -13,6 +13,12 @@ class TestPoliticoApp(unittest.TestCase):
             "logoUrl": "img.png",
             "hqAddress": "hhiii",
         }
+        self.datat = {
+            "id": 1,
+            "name": "barno",
+            "logoUrl": "img.jpeg",
+            "hqAddress": "uuu",
+        }
 
     def post(self, path='/api/v1/parties', data={}):
         if not data:
@@ -39,3 +45,12 @@ class TestPoliticoApp(unittest.TestCase):
         response = self.client.get(path, content_type='application/json')
         self.assertEqual(response.status_code, 200)
     
+    def test_edit_specific_party(self):
+        post = self.client.post(path='/api/v1/parties', data=json.dumps(self.data), content_type='application/json')
+        id = post.get_json()["data"]["id"]
+        name = post.get_json('name')
+        path = '/api/v1/parties/{}/name'.format(id)
+        response = self.client.patch(path, data=json.dumps(self.datat), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+
+   
