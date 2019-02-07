@@ -1,5 +1,7 @@
 parties = []
 
+# PartyModels
+
 
 class PartyModels():
 
@@ -18,3 +20,7 @@ class PartyModels():
         }
         self.db.append(party)
         return party
+
+     # Get all parties
+    def get_parties(self):
+        return self.db
