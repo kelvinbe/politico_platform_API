@@ -22,6 +22,7 @@ class TestPoliticoApp(unittest.TestCase):
                                 data=json.dumps(self.data), content_type='application/json')
         return resp
 
+
     def test_creating_a_party(self):
         resp = self.post()
         self.assertEqual(resp.status_code, 201)
@@ -31,3 +32,10 @@ class TestPoliticoApp(unittest.TestCase):
         resp = self.client.get(path='/api/v1/parties',
                                content_type='appliction/json')
         self.assertEqual(resp.status_code, 200)
+
+    def test_get_specific_party(self):
+        post = self.post()
+        path = '/api/v1/parties/1'
+        response = self.client.get(path, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+    

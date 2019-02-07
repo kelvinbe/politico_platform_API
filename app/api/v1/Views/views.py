@@ -26,3 +26,8 @@ def get_parties():
         "status": "OK",
         "data": parties
     }), 200)
+
+
+# View to get a specific party
+
+
