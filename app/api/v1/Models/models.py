@@ -52,3 +52,5 @@ class PartyModels():
                     party["logoUrl"] = logoUrl
 
                 return party
+
+   

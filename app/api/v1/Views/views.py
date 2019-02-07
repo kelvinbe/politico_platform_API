@@ -23,7 +23,7 @@ def create_party():
 def get_parties():
     parties = PartyModels().get_parties()
     return make_response(jsonify({
-        "status": "OK",
+        "status": 200,
         "data": parties
     }), 200)
 
@@ -36,7 +36,7 @@ def get_party(id):
     party = PartyModels().get_party(id)
     if party:
         return make_response(jsonify({
-            "status": "OK",
+            "status": 200,
             "data": party
         }), 200)
 
@@ -54,3 +54,6 @@ def edit_party(id):
         "msg": "party edited successfully",
         "data": party
     }), 200)
+
+
+   

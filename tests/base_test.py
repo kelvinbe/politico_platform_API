@@ -53,4 +53,13 @@ class TestPoliticoApp(unittest.TestCase):
         response = self.client.patch(path, data=json.dumps(self.datat), content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
+    def test_delete_specific_party(self):
+        post = self.client.post(path='/api/v1/parties', data=json.dumps(self.data), content_type='application/json')
+        id = post.get_json()["data"]["id"]
+        path = '/api/v1/parties/{}'.format(id)
+        response = self.client.delete(path, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        
+
+
    
