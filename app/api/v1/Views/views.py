@@ -99,3 +99,16 @@ def get_offices():
         "data": offices
 
     }), 200)
+
+
+# View to GET a specific office
+
+
+@version_1.route('/offices/<int:id>', methods=['GET'])
+def get_office(id):
+    office = OfficeModels().get_office(id)
+    if office:
+        return make_response(jsonify({
+            "status": 200,
+            "data": office
+        }), 200)

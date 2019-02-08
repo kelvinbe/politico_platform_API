@@ -84,3 +84,11 @@ class OfficeModels():
 
     def get_offices(self):
         return self.db
+
+
+# Get specific office
+
+    def get_office(self, id):
+        for office in self.db:
+            if office["id"] == id:
+                return office
