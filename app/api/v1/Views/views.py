@@ -17,7 +17,6 @@ def create_party():
         name = data['name']
         hqAddress = data['hqAddress']
         logoUrl = data['logoUrl']
-
         new_party = PartyModels().create(name, hqAddress, logoUrl)
         status = 201
         data = new_party
@@ -25,7 +24,7 @@ def create_party():
         "status": status,
         "data": [data]
 
-    }), status)
+    }), 201)
 
 
 @version_1.route('/parties', methods=['GET'])
@@ -141,7 +140,13 @@ def get_offices():
 def get_office(id):
     office = OfficeModels().get_office(id)
     if office:
-        return make_response(jsonify({
-            "status": 200,
-            "data": office
-        }), 200)
+        status = 200
+        data = office
+    else:
+        status = 404
+        data = {"message": "Office not found"}
+
+    return make_response(jsonify({
+        "status": status,
+        "data": [data]
+    }), status)

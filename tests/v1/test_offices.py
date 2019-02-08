@@ -8,7 +8,6 @@ class TestOfficeCase(unittest.TestCase):
         self.app = create_app()
         self.client = self.app.test_client()
         self.data = {
-            "id": 1,
             "name": "Presidency",
             "type": "img.png",
             
