@@ -1,3 +1,5 @@
+from error_handlers import create_404_response
+from ..validations import validate_party, validate_office
 from flask import Flask, Blueprint, make_response, request, jsonify
 from ..Models.models import PartyModels, OfficeModels
 version_1 = Blueprint("version_1", __name__, url_prefix="/api/v1/")
@@ -6,17 +8,24 @@ version_1 = Blueprint("version_1", __name__, url_prefix="/api/v1/")
 @version_1.route('/parties', methods=['POST'])
 def create_party():
     data = request.json
-    name = data['name']
-    hqAddress = data['hqAddress']
-    logoUrl = data['logoUrl']
+    message = validate_party(data)
+    if message:
+        status = 400
+        data = {"message": message}
+    else:
 
-    new_party = PartyModels().create(name, hqAddress, logoUrl)
+        name = data['name']
+        hqAddress = data['hqAddress']
+        logoUrl = data['logoUrl']
+
+        new_party = PartyModels().create(name, hqAddress, logoUrl)
+        status = 201
+        data = new_party
     return make_response(jsonify({
-        "status": 201,
-        "msg": "party created successfully",
-        "data": new_party
+        "status": status,
+        "data": [data]
 
-    }), 201)
+    }), status)
 
 
 @version_1.route('/parties', methods=['GET'])
@@ -35,10 +44,16 @@ def get_parties():
 def get_party(id):
     party = PartyModels().get_party(id)
     if party:
-        return make_response(jsonify({
-            "status": 200,
-            "data": party
-        }), 200)
+        status = 200
+        data = party
+    else:
+        status = 404
+        data = {"message": "Party not found"}
+
+    return make_response(jsonify({
+        "status": status,
+        "data": [data]
+    }), status)
 
 
 # View to edit a specific party
@@ -47,13 +62,25 @@ def get_party(id):
 @version_1.route('/parties/<int:id>/name', methods=['PATCH'])
 def edit_party(id):
     data = request.json
+    message = validate_party(data, True)
+    if message:
+        status = 400
+        data = {"message": message}
+    else:
 
-    party = PartyModels().edit_party(id, data)
+        name = data['name']
+
+        party = PartyModels().edit_party(id, data)
+        if party is None:
+            data, status = create_404_response("party")
+        else:
+            status = 200
+            data = party
     return make_response(jsonify({
-        "status": 200,
-        "msg": "party edited successfully",
-        "data": party
-    }), 200)
+        "status": status,
+        "data": [data]
+
+    }), status)
 
    # View to delete a specific party
 
@@ -68,20 +95,26 @@ def delete_party(id):
         }]
     }), 200)
 
-
-
     # Create office
+
 
 @version_1.route('/offices', methods=['POST'])
 def create_office():
     data = request.json
-    name = data['name']
-    type = data['type']
+    message = validate_office(data)
+    if message:
+        status = 400
+        data = {"message": message}
+    else:
+        name = data['name']
+        type = data['type']
 
-    new_office = OfficeModels().create(name, type)
+        new_office = OfficeModels().create(name, type)
+        status = 201
+        data = new_office
     return make_response(jsonify({
-        "status": 201,
-        "data": new_office
+        "status": status,
+        "data": [data]
 
 
 
