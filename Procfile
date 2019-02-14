@@ -1,2 +1,2 @@
-web: gunicorn politico_platform_api:run
+web: gunicorn app:run
 
