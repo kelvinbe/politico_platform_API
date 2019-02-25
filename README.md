@@ -37,10 +37,10 @@ export FLASK_APP="run.py"
 export APP_SETTINGS="development"
 FLASK_DEBUG=1
 ```
-*Step 4*
+*Step 2*
 #### Running the application
 ```$ python run.py```
-*Step 5*
+*Step 3*
 #### Testing
 ```$ pytest app/tests```
 ### API-Endpoints

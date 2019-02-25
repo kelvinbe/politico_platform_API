@@ -1,11 +1,11 @@
 import json
 import unittest
-from run import app
+from run import create_app
 
 
 class TestPoliticoApp(unittest.TestCase):
     def setUp(self):
-        self.app = app()
+        self.app = create_app()
         self.client = self.app.test_client()
         self.data = {
             "name": "Kelvin",

@@ -99,6 +99,7 @@ def delete_party(id):
 
 @version_1.route('/offices', methods=['POST'])
 def create_office():
+    print("hey")
     data = request.json
     message = validate_office(data)
     if message:
