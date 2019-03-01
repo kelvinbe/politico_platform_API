@@ -89,5 +89,13 @@ def tables():
         name CHARACTER varying(50) NOT NULL,
         created_on timestamp with time zone DEFAULT ('now'::text)::date NOT NULL);"""
 
-    queries = [votes, users, offices]
+    parties = """ CREATE TABLE IF NOT EXISTS parties (
+        
+        party_id serial PRIMARY KEY NOT NULL,
+        hqAddress character varying(50),
+        logourl CHARACTER varying(50) NOT NULL,
+        name CHARACTER varying(50) NOT NULL,
+        created_on timestamp with time zone DEFAULT ('now'::text)::date NOT NULL);"""
+
+    queries = [votes, users, offices, parties]
     return queries

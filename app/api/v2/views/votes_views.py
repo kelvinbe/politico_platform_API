@@ -1,8 +1,6 @@
-#from flask_restful import Resource, Api
 from error_handlers import create_404_response
 from flask import Flask, Blueprint, make_response, request, jsonify
 from ..models.votes_models import VotesModel
-#from ..models.office_models import OfficeModel
 version_2 = Blueprint('version_2', __name__, url_prefix='/api/v2/')
 
 

@@ -1,36 +1,35 @@
 from error_handlers import create_404_response
 from flask import Flask, Blueprint, make_response, request, jsonify
-from ..models.office_models import OfficeModel
-offices = Blueprint('offices', __name__, url_prefix='/api/v2/')
+from ..models.parties_models import PartiesModel
+parties = Blueprint('parties', __name__, url_prefix='/api/v2/')
 
 
-@offices.route('/offices', methods=['POST'])
-def office():
+@parties.route('/parties', methods=['POST'])
+def party():
     req = request.get_json()
     new = {
         "name": req['name'],
-        "type": req['type'],
-        "user": req['user']
+        "hqAddress": req['hqAddress'],
+        "logourl": req['logourl']
     }
 
-    reequest = OfficeModel(**new)
+    reequest = PartiesModel(**new)
     res = reequest.save()
 
     if isinstance(res, int):
         return make_response(jsonify({
-            "message": "Office created",
-            "office_id": res
+            "message": "Party created",
+            "party_id": res
         }), 201)
     else:
         return make_response(jsonify({
-            "message": "Office already exists",
+            "message": "Party already exists",
         }), 409)
 
 
-
-@offices.route('/offices/result', methods=['GET'])
-def get_offices():
-    res = OfficeModel().get_offices()
+@parties.route('/parties/result', methods=['GET'])
+def get_parties():
+    res = PartiesModel().get_parties()
     if not res:
         return make_response(jsonify({
             "message": "Database is empty"
@@ -42,9 +41,9 @@ def get_offices():
         }))
 
 
-@offices.route('/offices/<int:id>/result', methods=['GET'])
+@parties.route('/parties/<int:id>/result', methods=['GET'])
 def get(id):
-    res = OfficeModel().get_single_office(id)
+    res = PartiesModel().get_single_party(id)
     if not res:
         return make_response(jsonify({
             "message": "Not found",

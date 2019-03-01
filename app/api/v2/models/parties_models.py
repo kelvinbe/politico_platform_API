@@ -1,54 +1,70 @@
-# from app.database_config import init_db
-# from .basemodels import BaseModel
+from app.database_config import init_db
+from .basemodels import BaseModel
 
 
-# class PartiesModel(BaseModel):
-#     def __init__(self, name="name", type="type", user="user"):
-        
-#         self.name = name
-#         self.type = type
-#         self.user = user
+class PartiesModel(BaseModel):
+    def __init__(self, hqAddress="hqAddress", name="name", logourl="logourl"):
 
-#     def save(self):
-#         office = {
-#             "name": self.name,
-#             "type": self.type,
-#             "user": self.user
-#         }
+        self.name = name
+        self.logourl = logourl
+        self.hqAddress = hqAddress
 
-#         connect = init_db()
-#         cur = connect.cursor()
-#         if BaseModel().check_if_item_exists('offices', 'office', self.type) == True:
-#             return "vote already exists"
+    def save(self):
+        party = {
+            "name": self.name,
+            "logourl": self.logourl,
+            "hqAddress": self.hqAddress
+        }
 
-#         query = """ INSERT INTO offices(type, name, user)VALUES\
-#                 ( %(type)s, %(name)s, %(user)s, RETURNING vote_id """
+        connect = init_db()
+        cur = connect.cursor()
+        if BaseModel().check_if_item_exists('parties', 'name', self.name) == True:
+            return "party already exists"
 
-#         cur.execute(query, office)
-#         type = cur.fetchone()[0]
-#         connect.commit()
-#         connect.close()
-#         return type
+        query = """ INSERT INTO parties(logourl, name, hqAddress)VALUES\
+                ( %(logourl)s, %(name)s, %(hqAddress)s) RETURNING party_id """
 
+        cur.execute(query, party)
+        name = cur.fetchone()[0]
+        connect.commit()
+        connect.close()
+        return name
 
-#     def get_single_office(self, office_id):
-#         connect = init_db()
-#         cur = connect.cursor()
-#         if BaseModel().check_if_item_exists('offices', 'office_id', office_id) == False:
-#             return 404
+    def get_parties(self):
+        connect = init_db()
+        cur = connect.cursor()
+        query = "SELECT hqAddress, name, logourl FROM parties;"
+        cur.execute(query)
+        data = cur.fetchall()
+        res = []
 
-#         query = "SELECT type, created_on FROM offices WHERE office_id={};".format(office_id)
-#         cur.execute(query)
-#         data = cur.fetchall()
-#         res = []
+        for i, items in enumerate(data):
+            logourl, hqAddress, name = items
+        parties = dict(
 
-#         offices = dict(
-#             name=data[0],
-#             user=int(data[1]),
-#             type=str(data[2])
-#         )
-#         res.append(offices)
-#         return res
+            logourl=logourl,
+            hqAddress=hqAddress,
+            name=str(name)
+        )
+        res.append(parties)
+        return res
 
-    
+    def get_single_party(self, party_id):
+        connect = init_db()
+        cur = connect.cursor()
+        if BaseModel().check_if_item_exists('parties', 'party_id', party_id) == False:
+            return 404
 
+        query = "SELECT name, logourl, created_on FROM parties WHERE party_id={};".format(
+            party_id)
+        cur.execute(query)
+        data = cur.fetchall()[0]
+        res = []
+
+        party = dict(
+            name=data[0],
+            hqAddress=data[1],
+            logourl=str(data[2])
+        )
+        res.append(party)
+        return res
