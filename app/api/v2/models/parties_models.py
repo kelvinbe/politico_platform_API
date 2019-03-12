@@ -1,70 +1,67 @@
 from app.database_config import init_db
-from .basemodels import BaseModel
 
+class Party:
+    """ The party model """
 
-class PartiesModel(BaseModel):
-    def __init__(self, hqAddress="hqAddress", name="name", logourl="logourl"):
+    def __init__(self):
+        self.db = init_db()
 
-        self.name = name
-        self.logourl = logourl
-        self.hqAddress = hqAddress
-
-    def save(self):
+    def create_party(self, name, hqAddress, logoUrl):
+        """ Create a party method """
         party = {
-            "name": self.name,
-            "logourl": self.logourl,
-            "hqAddress": self.hqAddress
+            "name": name,
+            "hqAddress": hqAddress,
+            "logoUrl": logoUrl
         }
+        self.db.insert('parties', party)
+        return party
 
-        connect = init_db()
-        cur = connect.cursor()
-        if BaseModel().check_if_item_exists('parties', 'name', self.name) == True:
-            return "party already exists"
-
-        query = """ INSERT INTO parties(logourl, name, hqAddress)VALUES\
-                ( %(logourl)s, %(name)s, %(hqAddress)s) RETURNING party_id """
-
-        cur.execute(query, party)
-        name = cur.fetchone()[0]
-        connect.commit()
-        connect.close()
-        return name
-
-    def get_parties(self):
-        connect = init_db()
-        cur = connect.cursor()
-        query = "SELECT hqAddress, name, logourl FROM parties;"
-        cur.execute(query)
-        data = cur.fetchall()
-        res = []
-
+    def get_all_parties(self):
+        """ Get all parties method """
+        data = self.db.fetch_all_items('parties')
+        parties = []
         for i, items in enumerate(data):
-            logourl, hqAddress, name = items
-        parties = dict(
+            id, name, hqaddress, logourl, dateCreated = items
+            party = dict(
+                id=int(id),
+                name=name,
+                hqaddress=hqaddress,
+                logourl=logourl,
+                dateCreated=dateCreated
+            )
+            parties.append(party)
+        return parties
 
-            logourl=logourl,
-            hqAddress=hqAddress,
-            name=str(name)
-        )
-        res.append(parties)
-        return res
+    def get_specific_party(self, id):
+        """ Get all parties method """
+        data = self.db.search_by_id('parties', id)
+        for i, items in enumerate(data):
+            id, name, hqAddress, logourl, dateCreated = items
+            party = dict(
+                id=int(id),
+                name=name,
+                hqAddress=hqAddress,
+                logourl=logourl,
+                dateCreated=dateCreated
+            )
+            return party
 
-    def get_single_party(self, party_id):
-        connect = init_db()
-        cur = connect.cursor()
-        if BaseModel().check_if_item_exists('parties', 'party_id', party_id) == False:
-            return 404
+    def edit_party(self, id, name, data):
+        """Update the details of a political party"""
+        party = Party().get_specific_party(id)
+        if Party().get_specific_party(id):
+            if data.get('name') and data.get(
+                    'hqAddress') and data.get('logoUrl'):
+                self.db.cursor.execute(
+                    "UPDATE parties SET name=%s, hqAddress=%s, logoUrl=%s WHERE id={}".format(
+                        id, name), (data.get('name'), data.get('hqAddress'), data.get('logoUrl')))
+                return self.db.connection.commit()
 
-        query = "SELECT name, logourl, created_on FROM parties WHERE party_id={};".format(
-            party_id)
-        cur.execute(query)
-        data = cur.fetchall()[0]
-        res = []
+    def delete_party(self, id):
+        """This function deletes a product entry in the database"""
+        self.db.delete('parties', id)
 
-        party = dict(
-            name=data[0],
-            hqAddress=data[1],
-            logourl=str(data[2])
-        )
-        res.append(party)
-        return res
+    def search(self, name):
+        """ This function returns True if a party name exists in the database."""
+        if self.db.search_by_name('parties', name):
+            return True
