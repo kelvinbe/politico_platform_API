@@ -1,8 +1,7 @@
-from app import app
+from app import create_app
 from error_handlers import page_not_found
 
 
 
 
-
-app().run
+create_app().run
