@@ -1,10 +1,10 @@
 from flask import Blueprint, make_response, request, jsonify
-from app.api.v2.views.authenticate import users
+from app.api.v2.models.authent_models import User
 from utils.validations import error, validEmail, validUrl, validate_login_key_pair_values,\
     isBlank, validate_user_key_pair_values, check_for_blanks, success, validPassword
 from utils.helpers import jwt_required, create_access_token
 
-auth = Blueprint('auth', __name__)
+auth = Blueprint('auth', __name__, url_prefix='/api/v2')
 
 
 class SignUp:
@@ -53,7 +53,7 @@ class SignUp:
 
 
 class Login:
-    @jwt_required
+    
     @auth.route('/auth/login', methods=['POST'])
     def login():
         errors = validate_login_key_pair_values(request)

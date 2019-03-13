@@ -172,10 +172,10 @@ class Connection:
     #     admin = {
     #         "firstName": "Kelvin",
     #         "lastName": "Beno",
-    #         "otherName": "KelvinB",
+    #         "otherName": "kinya",
     #         "email": "admin@politico.com",
     #         "phoneNumber": "0718525890",
-    #         "passportUrl": "kev.png",
+    #         "passportUrl": "admin.png",
     #         "isAdmin": True,
     #         "password": "$pbkdf2-sha256$29000$ldLau3du7Z3z3vu/t5Yy5g$k0Yis/nwagdNd.kLd3uds3xjwIPHlOjfZwqcdVRc0oI"
     #     }

@@ -1,11 +1,11 @@
-from app.database_config import init_db
+from app.api.v2.database.database_config import Connection
 
 
 class User:
     """User Model"""
 
     def __init__(self):
-        self.db = init_db()
+        self.db = Connection()
 
     def create_user(
             self,

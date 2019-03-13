@@ -5,7 +5,7 @@ class Office:
     """ The office model """
 
     def __init__(self):
-        self.db = db()
+        self.db = Connection()
 
     def create_office(self, name, type):
         """ Create a office method """
