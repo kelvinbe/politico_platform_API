@@ -10,7 +10,7 @@ class Connection:
             URL = os.getenv('TEST_DATABASE_URL')
         else:
             URL = os.getenv('DATABASE_URL')
-        self.connection = psycopg2.connect("dbname='politicoone' host='127.0.0.1' port='5432' user='postgresone' password='root'")
+        self.connection = psycopg2.connect(URL)
         self.cursor = self.connection.cursor()
 
     def connection(self):
