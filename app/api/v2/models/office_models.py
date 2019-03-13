@@ -1,11 +1,11 @@
-from app.database_config import init_db
+from app.api.v2.database.database_config import Connection
 
 
 class Office:
     """ The office model """
 
     def __init__(self):
-        self.db = init_db()
+        self.db = db()
 
     def create_office(self, name, type):
         """ Create a office method """

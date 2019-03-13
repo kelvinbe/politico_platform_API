@@ -1,10 +1,10 @@
-from app.database_config import init_db
+from app.api.v2.database import Connection
 
 class Party:
     """ The party model """
 
     def __init__(self):
-        self.db = init_db()
+        self.db = db()
 
     def create_party(self, name, hqAddress, logoUrl):
         """ Create a party method """
