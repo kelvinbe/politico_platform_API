@@ -1,17 +1,17 @@
 from flask import Blueprint, make_response, request, jsonify
 from app.api.v2.models.office_models import Office
-from app.api.v2.models.authent_models import
+#from app.api.v2.models.authent_models import 
 from utils.helpers import admin_required, jwt_required, allowed_offices, allowed_office_types
 from utils.validations import validate_office_key_pair_values, error, check_for_blanks, \
     check_for_non_strings, success
-office = Blueprint('office', __name__)
+office_v2 = Blueprint('office_v2', __name__, url_prefix="/api/v2/")
 
 
 class OfficeEndPoint:
     """Office API Endpoints"""
 
-    @office.route('/offices', methods=["POST"])
-    @admin_required
+    @office_v2.route('/offices', methods=["POST"])
+    #@admin_required
     def office():
         """ Create office endpoint """
 
@@ -40,7 +40,7 @@ class OfficeEndPoint:
 
         return success(201, "Office successfully created!", Office().create_office(name, office)), 201
 
-    @office.route('/offices', methods=["GET"])
+    @office_v2.route('/offices', methods=["GET"])
     @jwt_required
     def get_offices():
         """ Get all offices endpoint """
@@ -51,7 +51,7 @@ class OfficeEndPoint:
         print(Office().get_all_offices())
         return success(200, "Success", Office().get_all_offices())
 
-    @office.route('/offices/<int:id>', methods=["GET"])
+    @office_v2.route('/offices/<int:id>', methods=["GET"])
     @jwt_required
     def get_specific_party(id):
         """ Get a specific political office """
