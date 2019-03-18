@@ -12,7 +12,7 @@ class DevelopmentConfig(Config):
     """Configurations for Development"""
     DEBUG = True
     TESTING = False
-    DATABASE_URL = os.getenv('postgresql://localhost/politico')
+    DATABASE_URL = os.getenv('postgresql://postgresone:root@localhost:5432/politicoone')
 
 
 class TestingConfig(Config):

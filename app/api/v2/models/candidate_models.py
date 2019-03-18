@@ -1,4 +1,4 @@
-from app.api.v2.database.db import Connection
+from app.api.v2.database.database_config import Connection
 
 
 class Candidate:
@@ -33,8 +33,8 @@ class Candidate:
 
     def getOffice(self, candidate):
         data = self.db.fetch_office(candidate)
-        party = data[0]
-        return party
+        office = data[0]
+        return office
 
     def get_all_politicians(self):
         """Fetch all politicians"""
