@@ -1,4 +1,4 @@
-from app.api.v2.database.db import Connection
+from app.api.v2.database.database_config import Connection
 
 
 class Result:

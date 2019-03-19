@@ -3,14 +3,14 @@ from app.api.v2.models.office_models import Office
 from utils.helpers import admin_required, jwt_required, allowed_offices, allowed_office_types
 from utils.validations import validate_office_key_pair_values, error, check_for_blanks, \
     check_for_non_strings, success
-Office = Blueprint('Office', __name__, url_prefix="/api/v2/")
+officee = Blueprint('Office', __name__, url_prefix="/api/v2/")
 
 
 class OfficeEndPoint:
     """Office API Endpoints"""
 
-    @Office.route('/offices', methods=["POST"])
-    @admin_required
+    @officee.route('/offices', methods=["POST"])
+    #@admin_required
     def office():
         """ Create office endpoint """
 
@@ -26,21 +26,21 @@ class OfficeEndPoint:
             return error(400, "{} must be a string".format(', '.join(check_for_non_strings(data))))
 
         name = data.get('name')
-        office = data.get('officeType')
+        office_type = data.get('officeType')
 
         if name not in allowed_offices:
             return error(400, "Office name can either be Presidential, Gubernatorial, Senatorial, Member of National Assembly, Member of County Assemby or Women Representative!")
 
-        if office not in allowed_office_types:
+        if office_type not in allowed_office_types:
             return error(400, "Office type can either be National or County!")
 
-        if office().search(name):
+        if Office().search(name):
             return error(400, "Such an office is already registered!")
 
-        return success(201, "Office successfully created!", Office().create_office(name, office)), 201
+        return success(201, "Office successfully created!", Office().create_office(name, office_type)), 201
 
-    @Office.route('/offices', methods=["GET"])
-    @jwt_required
+    @officee.route('/offices', methods=["GET"])
+    ##@jwt_required
     def get_offices():
         """ Get all offices endpoint """
 
@@ -50,8 +50,8 @@ class OfficeEndPoint:
         print(Office().get_all_offices())
         return success(200, "Success", Office().get_all_offices())
 
-    @Office.route('/offices/<int:id>', methods=["GET"])
-    @jwt_required
+    @officee.route('/offices/<int:id>', methods=["GET"])
+    #@jwt_required
     def get_specific_party(id):
         """ Get a specific political office """
         if id <= 0:

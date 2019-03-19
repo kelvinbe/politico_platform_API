@@ -4,14 +4,14 @@ from functools import wraps
 from utils.validations import validate_office_key_pair_values, error, check_for_blanks, check_for_non_ints, success
 from utils.helpers import jwt_required
 
-vote = Blueprint('vote', __name__)
+votee = Blueprint('vote', __name__)
 
 
 class VoteEndPoint:
     """Vote API Endpoint"""
 
-    @vote.route('/votes/', methods=["POST"])
-    @jwt_required
+    @votee.route('/votes/', methods=["POST"])
+   # @jwt_required
     def vote():
         """ Vote endpoint """
 
@@ -38,7 +38,7 @@ class VoteEndPoint:
 
 
 class GetVote:
-    @vote.route('/votes/<int:id>', methods=["GET"])
-    @jwt_required
+    @votee.route('/votes/<int:id>', methods=["GET"])
+    #@jwt_required
     def getvote(id):
         return success(201, "Thanks for voting, your vote will count!", Vote().get(id)), 201

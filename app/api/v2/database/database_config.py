@@ -52,7 +52,7 @@ class Connection:
         items = self.cursor.fetchall()
         return items
 
-    def fetch_single_item(self, table, id):
+    def fetch_single_item(self, table,):
         """ Fetch single item """
         self.cursor.execute(
             """SELECT * FROM {} WHERE {} = {}""".format(table, id, id))

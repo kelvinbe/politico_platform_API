@@ -1,9 +1,10 @@
 # Politico
 
 ## Introduction
+ [![Build Status](https://travis-ci.com/kelvinbe/politico_platform_API.svg?branch=develop)](https://travis-ci.com/kelvinbe/politico_platform_API)
  [![Coverage Status](https://coveralls.io/repos/github/kelvinbe/politico_platform_API/badge.svg)](https://coveralls.io/github/kelvinbe/politico_platform_API) [![Maintainability](https://api.codeclimate.com/v1/badges/00d23f7da810ae6b79a9/maintainability)](https://codeclimate.com/github/kelvinbe/politico_platform_API/maintainability)
 
-### Features
+###  Features
 
 1. API can create political party.
 2. API can delete political party.

@@ -12,7 +12,7 @@ class PartyEndPoint:
     """Party API Endpoints"""
 
     @party_version_2.route('/parties', methods=["POST"])
-    @admin_required
+    #@admin_required
     def party():
         """ Create party endpoint """
         errors = validate_party_key_pair_values(request)
@@ -38,7 +38,7 @@ class PartyEndPoint:
         return success(201, "Success", Party().create_party(name, hqAddress, logoUrl)), 201
 
     @party_version_2.route('/parties', methods=["GET"])
-    @jwt_required
+    #@jwt_required
     def get_parties():
         """ Get all parties endpoint """
 
@@ -48,7 +48,7 @@ class PartyEndPoint:
         return success(200, "Success", Party().get_all_parties())
 
     @party_version_2.route('/parties/<int:id>', methods=["GET"])
-    @jwt_required
+    #@jwt_required
     def get_specific_party(id):
         """ Get a specific political party """
         if id <= 0:
@@ -60,7 +60,7 @@ class PartyEndPoint:
     @party_version_2.route(
         '/parties/<int:id>/<string:name>',
         methods=['PATCH'])
-    @admin_required
+    #@admin_required
     def patch_party(id, name):
         """ Edit specific political party """
         if id <= 0:
@@ -95,7 +95,7 @@ class PartyEndPoint:
         return success(201, "Party details successfully updated!", Party().get_specific_party(id)), 201
 
     @party_version_2.route('/parties/<int:id>', methods=["DELETE"])
-    @admin_required
+    #@admin_required
     def delete_party(id):
         """ Delete specific political party """
         if id <= 0:

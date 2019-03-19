@@ -12,7 +12,7 @@ class selfNomination:
     """Express interest endpoint"""
 
     @nomination.route('office/<int:office>/nomination', methods=['POST'])
-    @jwt_required
+    #@jwt_required
     def self_nomination(office):
         """Self nominations endpoint"""
 

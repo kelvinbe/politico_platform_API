@@ -37,7 +37,6 @@ def create_queries():
                     hqAddress VARCHAR(50) NOT NULL,
                     logoUrl VARCHAR(50) NOT NULL,
                     dateCreated TIMESTAMP NULL DEFAULT NOW() );"""
-
     offices = """CREATE TABLE IF NOT EXISTS offices(
                     id SERIAL PRIMARY KEY NOT NULL,
                     type VARCHAR(50) NOT NULL,

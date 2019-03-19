@@ -10,7 +10,7 @@ class ResultEndPoint:
     """Results API Endpoints"""
 
     @result.route('/office/<int:id>/result', methods=["GET"])
-    @jwt_required
+    #@jwt_required
     def get(id):
         """ Register candidate endpoint """
         if not Result().search(id):
